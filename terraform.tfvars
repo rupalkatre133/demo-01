@@ -1,0 +1,9 @@
+region            = "ap-south-1"
+ami_id            = "ami-0078a63645c7b8a87"         # Replace with a valid AMI for your region
+instance_type     = "t2.micro"
+subnet_id         = "subnet-0e8f3af375fd2ec2e"      # Replace with your actual subnet ID
+key               = "tanvi-23"
+availability_zone = "ap-south-1a"                    # Must match subnet's AZ
+ebs_volume_size   = 10
+ebs_volume_type   = "gp2"
+device_name       = "/dev/sdf"
