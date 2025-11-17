@@ -1,15 +1,11 @@
 version: 0.2
 
-env:
-  variables:
-    release: "amazonlinux"
-
 phases:
   install:
     commands:
-      - echo "Installing Terraform..."
+      - echo "Installing Terraform for Amazon Linux 2023..."
       - dnf install -y dnf-plugins-core
-      - dnf config-manager --add-repo https://rpm.releases.hashicorp.com/$release/hashicorp.repo
+      - dnf config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/9/hashicorp.repo
       - dnf install -y terraform
       - terraform -version
 
@@ -17,20 +13,16 @@ phases:
     commands:
       - echo "Initializing Terraform..."
       - terraform init
-      - echo "Checking Terraform formatting..."
+      - echo "Running Terraform fmt..."
       - terraform fmt -write=true
 
   build:
     commands:
-      - echo "Running Terraform Plan..."
+      - echo "Running Terraform plan..."
       - terraform plan -input=false -out=tfplan
 
   post_build:
     commands:
-      - echo "Applying Terraform changes..."
-      - terraform apply -auto-approve -input=false tfplan
-      - echo "Terraform Apply completed successfully."
-
-artifacts:
-  files:
-    - '**/*'
+      - echo "Applying Terraform..."
+      - terraform apply -input=false -auto-approve tfplan
+      - echo "Terraform apply completed."
