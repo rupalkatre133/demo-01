@@ -3,42 +3,39 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "================ INSTALL PHASE ================"
-      - echo "Updating system packages..."
-      - dnf update -y --allowerasing
+      - echo "========= INSTALL PHASE ========="
+      - echo "Installing unzip and curl..."
+      - dnf install -y --allowerasing unzip curl
 
-      - echo "Installing required tools: unzip, curl, git..."
-      - dnf install -y --allowerasing unzip curl git dnf-plugins-core
+      - echo "Downloading Terraform 1.9.8..."
+      - curl -O https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
 
-      - echo "Adding HashiCorp repo for Terraform..."
-      - dnf config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/9/hashicorp.repo
+      - echo "Unzipping Terraform..."
+      - unzip -o terraform_1.9.8_linux_amd64.zip
 
-      - echo "Installing Terraform..."
-      - dnf install -y --allowerasing terraform
+      - echo "Moving Terraform binary to /usr/local/bin..."
+      - mv -f terraform /usr/local/bin/
+      - chmod +x /usr/local/bin/terraform
 
+      - echo "Terraform version installed:"
       - terraform version
 
   pre_build:
     commands:
-      - echo "================ PRE-BUILD PHASE ================"
+      - echo "========= PRE-BUILD PHASE ========="
       - echo "Initializing Terraform..."
       - terraform init
 
   build:
     commands:
-      - echo "================ BUILD PHASE ================"
-      - echo "Formatting Terraform files..."
+      - echo "========= BUILD PHASE ========="
+      - echo "Running Terraform FMT..."
       - terraform fmt -write=true
 
-      - echo "Creating Terraform plan..."
+      - echo "Validating Terraform configuration..."
+      - terraform validate
+
+      - echo "Generating Terraform plan..."
       - terraform plan -input=false -out=tfplan
 
-  post_build:
-    commands:
-      - echo "================ POST-BUILD PHASE ================"
-      - echo "Applying Terraform changes..."
-      - terraform apply -input=false -auto-approve tfplan
-
-artifacts:
-  files:
-    - "**/*"
+  po
