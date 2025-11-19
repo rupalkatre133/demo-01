@@ -7,3 +7,7 @@ availability_zone = "us-east-1f"                    # Must match subnet's AZ
 ebs_volume_size   = 10
 ebs_volume_type   = "gp2"
 device_name       = "/dev/sdf"
+
+# ALB
+vpc_id       = "vpc-01cf7ea9e8f2a1b75"
+lb_subnets   = ["subnet-0f60a98a3eb00c715", "subnet-05ade5fd67df8add4"]
