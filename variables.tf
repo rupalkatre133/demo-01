@@ -46,3 +46,13 @@ variable "device_name" {
   type        = string
   default     = "/dev/sdf"
 }
+
+variable "vpc_id" {
+  description = "VPC ID for ALB"
+  type        = string
+}
+
+variable "lb_subnets" {
+  description = "Subnets for ALB"
+  type        = list(string)
+}
