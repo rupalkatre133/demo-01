@@ -1,9 +1,9 @@
 region            = "us-east-1"
 ami_id            = "ami-0ecb62995f68bb549"         # Replace with a valid AMI for your region
 instance_type     = "t3.micro"
-subnet_id         = "subnet-02557a9db62d17da8"      # Replace with your actual subnet ID
-key               = "N.virginia-ppk"
-availability_zone = "us-east-1b"                    # Must match subnet's AZ
+subnet_id         = "subnet-0a40fa0f22c86c76b"      # Replace with your actual subnet ID
+key               = "Virginia"
+availability_zone = "us-east-1f"                    # Must match subnet's AZ
 ebs_volume_size   = 10
 ebs_volume_type   = "gp2"
 device_name       = "/dev/sdf"
